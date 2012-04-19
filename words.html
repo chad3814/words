@@ -13,7 +13,7 @@
 <div>Most Points: <span id='mpw'></span>(<span id='mp'>0</span>)</div>
 <h1>Find Best Word:</h1>
 <label for="letter">Your Letters:</label>
-<input type="text" id="letters" onchange="findWords();"/><button onclick="return findWords();">Find Words</button><br/>
+<input type="text" id="letters" onkeyup="findWords();"/><button onclick="return findWords();">Find Words</button><br/>
 <div id="results" style="display:none">
   <button id="prev" onclick="prevWord();">previous</button>
   <span id="word"></span>(<span id="value"></span>)
