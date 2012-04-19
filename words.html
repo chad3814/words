@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>words</title>
+<script src="words2.js"></script>
+
+</head>
+
+<body>
+<h1>Dictionary Stats:</h1>
+<div>Word Count: <span id='wc'>0</span></div>
+<div>Longest Word: <span id='lw'></span>(<span id='lwc'>0</span>)</div>
+<div>Most Points: <span id='mpw'></span>(<span id='mp'>0</span>)</div>
+<h1>Find Best Word:</h1>
+<label for="letter">Your Letters:</label>
+<input type="text" id="letters" onchange="findWords();"/><button onclick="return findWords();">Find Words</button><br/>
+<div id="results" style="display:none">
+  <button id="prev" onclick="prevWord();">previous</button>
+  <span id="word"></span>(<span id="value"></span>)
+  <button id="next" onclick="nextWord();">next</button>
+</div>
+<script>
+document.getElementById('wc').innerHTML = enable.word_count;
+document.getElementById('lw').innerHTML = enable.longest_word;
+document.getElementById('lwc').innerHTML = enable.longest;
+document.getElementById('mpw').innerHTML = enable.most_points_word;
+document.getElementById('mp').innerHTML = enable.most_points;
+
+function findWords() {
+    var letters = document.getElementById('letters').value.split('');
+    window.words = enable.findWords(letters);
+    window.word_idx = 0;
+    displayResults();
+    return false;
+}
+function displayResults() {
+    document.getElementById('results').style.display = 'block';
+    if(window.word_idx == 0) {
+        document.getElementById('prev').disabled = 'disabled';
+    } else {
+        document.getElementById('prev').disabled = '';
+    }
+    if(window.word_idx >= (window.words.length - 1)) {
+        document.getElementById('next').disabled = 'disabled';
+    } else {
+        document.getElementById('next').disabled = '';
+    }
+    if(words[word_idx]) {
+        document.getElementById('word').innerText = words[word_idx];
+        document.getElementById('value').innerText = countPoints(words[word_idx]);
+    } else {
+        document.getElementById('results').style.display = 'none';
+    }
+}
+function prevWord() {
+    window.word_idx--;
+    Math.max(0,word_idx);
+    displayResults();
+}
+function nextWord() {
+    window.word_idx++;
+    Math.min(window.words.length-1,word_idx);
+    displayResults();
+}
+</script>
+</body> </html>
